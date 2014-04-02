@@ -1,0 +1,7 @@
+# 
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "view:stock.shipment.out:"
+msgid "Clear Unassigned Moves"
+msgstr "Esborra moviments no assignats"
