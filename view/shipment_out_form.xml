@@ -3,7 +3,7 @@
      copyright notices and license terms. -->
 <data>
     <xpath expr="/form/group[@id='state_buttons']/group[@id='buttons']"
-        position="inside">
+            position="inside">
         <button string="Clear Unassigned Moves" name="clear_unassigned"/>
     </xpath>
 </data>

@@ -1,5 +1,6 @@
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
+from trytond.model import ModelView
 from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval
 
@@ -21,6 +22,7 @@ class ShipmentOut:
                 })
 
     @classmethod
+    @ModelView.button
     def clear_unassigned(cls, shipments):
         pool = Pool()
         Move = pool.get('stock.move')
@@ -30,7 +32,7 @@ class ShipmentOut:
             to_delete = []
             for move in shipment.inventory_moves:
                 if move.state == 'assigned':
-                    if not move.product in assigned:
+                    if move.product not in assigned:
                         assigned.setdefault(move.product, 0.0)
                     assigned[move.product] += move.internal_quantity
                 elif move.state == 'draft':
@@ -45,7 +47,5 @@ class ShipmentOut:
                     assigned[move.product] -= move.internal_quantity
                 else:
                     to_delete.append(move)
-
         if to_delete:
             Move.delete(to_delete)
-
