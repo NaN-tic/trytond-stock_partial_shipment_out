@@ -161,8 +161,7 @@ Assign the shipment now::
 
 Clear unassigned moves, assign and pack shipment::
 
-    >>> ShipmentOut.clear_unassigned([shipment_out.id], config.context)
-    >>> shipment_out.reload()
+    >>> shipment_out.click('clear_unassigned')
     >>> len(shipment_out.outgoing_moves)
     1
     >>> len(shipment_out.inventory_moves)
