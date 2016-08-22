@@ -12,6 +12,8 @@ Imports::
     >>> from dateutil.relativedelta import relativedelta
     >>> from decimal import Decimal
     >>> from proteus import config, Model, Wizard
+    >>> from trytond.modules.company.tests.tools import create_company, \
+    ...     get_company
     >>> today = datetime.date.today()
 
 Create database::
@@ -19,55 +21,24 @@ Create database::
     >>> config = config.set_trytond()
     >>> config.pool.test = True
 
-Install stock Module::
+Install stock_partial_shipment_out Module::
 
-    >>> Module = Model.get('ir.module.module')
+    >>> Module = Model.get('ir.module')
     >>> modules = Module.find([('name', '=', 'stock_partial_shipment_out')])
     >>> Module.install([x.id for x in modules], config.context)
-    >>> Wizard('ir.module.module.install_upgrade').execute('upgrade')
+    >>> Wizard('ir.module.install_upgrade').execute('upgrade')
 
 Create company::
 
-    >>> Currency = Model.get('currency.currency')
-    >>> CurrencyRate = Model.get('currency.currency.rate')
-    >>> Company = Model.get('company.company')
-    >>> Party = Model.get('party.party')
-    >>> company_config = Wizard('company.company.config')
-    >>> company_config.execute('company')
-    >>> company = company_config.form
-    >>> party = Party(name='OPENLABS')
-    >>> party.save()
-    >>> company.party = party
-    >>> currencies = Currency.find([('code', '=', 'EUR')])
-    >>> if not currencies:
-    ...     currency = Currency(name='Euro', symbol=u'€', code='EUR',
-    ...         rounding=Decimal('0.01'), mon_grouping='[3, 3, 0]',
-    ...         mon_decimal_point=',')
-    ...     currency.save()
-    ...     CurrencyRate(date=today + relativedelta(month=1, day=1),
-    ...         rate=Decimal('1.0'), currency=currency).save()
-    ... else:
-    ...     currency, = currencies
-    >>> company.currency = currency
-    >>> company_config.execute('add')
-    >>> company, = Company.find()
-
-Reload the context::
-
-    >>> User = Model.get('res.user')
-    >>> config._context = User.get_preferences(True, config.context)
+    >>> _ = create_company()
+    >>> company = get_company()
+    >>> party = company.party
 
 Create customer::
 
     >>> Party = Model.get('party.party')
     >>> customer = Party(name='Customer')
     >>> customer.save()
-
-Create category::
-
-    >>> ProductCategory = Model.get('product.category')
-    >>> category = ProductCategory(name='Category')
-    >>> category.save()
 
 Create product::
 
@@ -78,7 +49,6 @@ Create product::
     >>> product = Product()
     >>> template = ProductTemplate()
     >>> template.name = 'Product'
-    >>> template.category = category
     >>> template.default_uom = unit
     >>> template.type = 'goods'
     >>> template.list_price = Decimal('20')
@@ -115,9 +85,7 @@ Add two shipment lines of same product::
     ...     move.quantity = 1
     ...     move.from_location = output_loc
     ...     move.to_location = customer_loc
-    ...     move.company = company
     ...     move.unit_price = Decimal('1')
-    ...     move.currency = currency
     >>> shipment_out.save()
 
 Set the shipment state to waiting::
@@ -139,9 +107,7 @@ Make 1 unit of the product available::
     >>> incoming_move.to_location = storage_loc
     >>> incoming_move.planned_date = today
     >>> incoming_move.effective_date = today
-    >>> incoming_move.company = company
     >>> incoming_move.unit_price = Decimal('1')
-    >>> incoming_move.currency = currency
     >>> incoming_move.save()
     >>> StockMove.do([incoming_move.id], config.context)
 
