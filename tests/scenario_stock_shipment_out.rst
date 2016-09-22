@@ -166,6 +166,8 @@ Clear unassigned moves, assign and pack shipment::
     1
     >>> len(shipment_out.inventory_moves)
     1
+    >>> shipment_out.inventory_moves[0].origin == shipment_out.outgoing_moves[0]
+    True
     >>> sum([m.quantity for m in shipment_out.inventory_moves]) == \
     ...     sum([m.quantity for m in shipment_out.outgoing_moves])
     True
