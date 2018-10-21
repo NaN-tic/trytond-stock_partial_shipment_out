@@ -4,6 +4,6 @@
 <data>
     <xpath expr="/form/group[@id='state_buttons']/group[@id='buttons']"
         position="inside">
-        <button string="Clear Unassigned Moves" name="clear_unassigned"/>
+        <button name="clear_unassigned"/>
     </xpath>
 </data>
