@@ -116,7 +116,7 @@ Assign the shipment now::
     >>> states = [m.state for m in shipment_out.inventory_moves]
     >>> states.sort()
     >>> states
-    [u'assigned', u'draft']
+    ['assigned', 'draft']
 
 Clear unassigned moves, assign and pack shipment::
 
@@ -133,10 +133,10 @@ Clear unassigned moves, assign and pack shipment::
     True
     >>> ShipmentOut.pack([shipment_out.id], config.context)
     >>> shipment_out.reload()
-    >>> set([m.state for m in shipment_out.outgoing_moves])
-    set([u'assigned'])
+    >>> {m.state for m in shipment_out.outgoing_moves}
+    {'assigned'}
     >>> shipment_out.inventory_moves[0].state
-    u'done'
+    'done'
     >>> sum([m.quantity for m in shipment_out.inventory_moves]) == \
     ...     sum([m.quantity for m in shipment_out.outgoing_moves])
     True
