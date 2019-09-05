@@ -18,5 +18,10 @@ this repository contains the full copyright notices and license terms. -->
             <field name="button" ref="shipment_out_clear_unassigned_button"/>
             <field name="group" ref="stock.group_stock"/>
         </record>
+
+        <record model="ir.ui.icon" id="jump_icon">
+            <field name="name">tryton-go-jump</field>
+            <field name="path">icons/tryton-go-jump.svg</field>
+        </record>
     </data>
 </tryton>
