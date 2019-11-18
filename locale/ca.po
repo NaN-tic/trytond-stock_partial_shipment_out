@@ -1,7 +1,12 @@
-# 
+#
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
+msgctxt "model:ir.model.button,string:shipment_out_partial_shipment_button"
+msgid "Partial Shipment"
+msgstr "Enviament parcial"
+
 msgctxt "view:stock.shipment.out:"
-msgid "Clear Unassigned Moves"
-msgstr "Esborra moviments no reservats"
+msgid "Are you sure to remove inventory moves that are in draft state?"
+msgstr ""
+"Esteu segur de borrar els moviments d'inventari en estat borrador?"
