@@ -2,6 +2,6 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
-msgctxt "view:stock.shipment.out:"
-msgid "Clear Unassigned Moves"
+msgctxt "model:ir.model.button,string:shipment_out_partial_shipment_button"
+msgid "Partial Shipment"
 msgstr "Nicht zugewiesene Lagerbewegungen löschen"
