@@ -12,6 +12,7 @@ this repository contains the full copyright notices and license terms. -->
         <record model="ir.model.button" id="shipment_out_partial_shipment_button">
             <field name="name">partial_shipment</field>
             <field name="string">Partial Shipment</field>
+            <field name="confirm">Are you sure to remove inventory moves that are in draft state?</field>
             <field name="model" search="[('model', '=', 'stock.shipment.out')]"/>
         </record>
         <record model="ir.model.button-res.group" id="shipment_out_partial_shipment_button_group_stock">
