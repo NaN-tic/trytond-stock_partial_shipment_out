@@ -117,17 +117,19 @@ Create Shipment Out::
     >>> shipment_out.click('assign_try')
     False
     >>> inventory_move1, inventory_move2 = shipment_out.inventory_moves
-    >>> inventory_move1.click('assign')
-    >>> inventory_move1.state == 'assigned'
-    True
-    >>> shipment_out.reload()
     >>> shipment_out.click('partial_shipment')
     >>> shipment_out.reload()
-    >>> len(shipment_out.inventory_moves)
-    1
-    >>> len(shipment_out.outgoing_moves)
-    2
+    >>> len(shipment_out.inventory_moves) == 1
+    True
+    >>> inventory_move, = shipment_out.inventory_moves
+    >>> inventory_move.state == 'assigned'
+    True
+    >>> len(shipment_out.outgoing_moves) == 2
+    True
+    >>> shipment_out.click('pick')
     >>> shipment_out.click('pack')
-    >>> outgoing_move1, outgoing_move2 = shipment_out.outgoing_moves
-    >>> outgoing_move1.quantity == 0
+    >>> len(shipment_out.outgoing_moves) == 1
+    True
+    >>> outgoing_move, = shipment_out.outgoing_moves
+    >>> outgoing_move.quantity == inventory_move.quantity
     True
