@@ -71,6 +71,7 @@ Make 1 unit of the product available::
     >>> incoming_move.planned_date = today
     >>> incoming_move.effective_date = today
     >>> incoming_move.unit_price = Decimal('1')
+    >>> incoming_move.currency = company.currency
     >>> incoming_move.save()
     >>> incoming_move.click('do')
 
@@ -85,6 +86,7 @@ Make 10 unit of the product available::
     >>> incoming_move.planned_date = today
     >>> incoming_move.effective_date = today
     >>> incoming_move.unit_price = Decimal('1')
+    >>> incoming_move.currency = company.currency
     >>> incoming_move.save()
     >>> incoming_move.click('do')
 
@@ -104,6 +106,7 @@ Create Shipment Out::
     >>> move1.from_location = output_loc
     >>> move1.to_location = customer_loc
     >>> move1.unit_price = Decimal('1')
+    >>> move1.currency = company.currency
     >>> move2 = StockMove()
     >>> shipment_out.outgoing_moves.append(move2)
     >>> move2.product = product2
@@ -112,6 +115,7 @@ Create Shipment Out::
     >>> move2.from_location = output_loc
     >>> move2.to_location = customer_loc
     >>> move2.unit_price = Decimal('1')
+    >>> move2.currency = company.currency
     >>> shipment_out.save()
     >>> shipment_out.click('wait')
     >>> shipment_out.click('assign_try')
