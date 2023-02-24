@@ -119,7 +119,6 @@ Create Shipment Out::
     >>> shipment_out.save()
     >>> shipment_out.click('wait')
     >>> shipment_out.click('assign_try')
-    False
     >>> inventory_move1, inventory_move2 = shipment_out.inventory_moves
     >>> shipment_out.click('partial_shipment')
     >>> shipment_out.reload()
